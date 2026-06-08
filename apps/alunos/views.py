@@ -3,6 +3,8 @@ from .forms import AlunoForm
 from .models import Aluno, Fichamedica
 from avaliacoesfisicas.views import criar_avaliacaofisica_para_aluno
 from django.contrib.auth.decorators import login_required
+from rest_framework import viewsets
+from .serializer import AlunoSerializer
 
 # Create your views here.
 @login_required(login_url='/contas/login/')
@@ -61,3 +63,7 @@ def pesquisar_alunos(request):
         'fichasmedicas': fichasmedicas,
     }
     return render(request,template_name, context)
+
+class AlunoViewSet(viewsets.ModelViewSet):
+    queryset = Aluno.objects.all()
+    serializer_class = AlunoSerializer

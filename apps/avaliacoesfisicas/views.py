@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from avaliacoesfisicas.models import Avaliacaofisica
 from django.contrib.auth.decorators import login_required
+from rest_framework import viewsets
+from .serializer import AvaliacaofisicaSerializer
 
 @login_required(login_url='/contas/login/')
 def criar_avaliacaofisica_para_aluno(aluno):
@@ -24,3 +26,7 @@ def ver_avaliacaofisica(request, avaliacaofisica_id):
         'aluno': avaliacaofisica.aluno,
     }
     return render(request, template_name, context)
+
+class AvaliacaofisicaViewSet(viewsets.ModelViewSet):
+    queryset = Avaliacaofisica.objects.all()
+    serializer_class = AvaliacaofisicaSerializer
