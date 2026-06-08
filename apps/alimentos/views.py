@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import AlimentoForm
 from .models import Alimento
 from django.contrib.auth.decorators import login_required
+from rest_framework import viewsets
+from .serializer import AlimentoSerializer
 
 # Create your views here.
 @login_required(login_url='/contas/login/')
@@ -47,3 +49,7 @@ def deletar_alimento(request, id_alimento):
     alimento = Alimento.objects.get(id=id_alimento)
     alimento.delete()
     return redirect('alimentos:listar_alimentos')
+
+class AlimentoViewSet(viewsets.ModelViewSet):
+    queryset = Alimento.objects.all()
+    serializer_class = AlimentoSerializer
