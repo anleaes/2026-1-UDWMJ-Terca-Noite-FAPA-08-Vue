@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Adicionar Ficha Médica - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+<div class="container-form">
+    <b>📝 Cadastro de Ficha Médica</b>
+    
+    <form action="" method="POST">
+        {% csrf_token %}
+        
+        <label>Nome</label>
+        <br />
+        {{ form.nome }}
+        <br />
+        <br />
+        
+        <label>Descrição</label>
+        <br />
+        {{ form.descricao }}
+        <br />
+        <br />
+        
+        <button type="submit">💾 Salvar</button>
+    </form>
+</div>
+{% endblock body %}

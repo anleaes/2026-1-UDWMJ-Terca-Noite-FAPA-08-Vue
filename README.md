@@ -1,1 +1,3 @@
-# 2026-1-UDWMJ-Terca-Noite-FAPA-08-Vue
+# 2026-1-UDWJM-Terca-Noite-FAPA-08
+# Feito o diagrama de classes
+# Montada a estrutura do projeto e configuração
