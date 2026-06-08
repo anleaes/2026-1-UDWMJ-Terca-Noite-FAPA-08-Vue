@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from .models import Alimento
+from .models import Avaliacaofisica
 
-class AlimentoSerializer(serializers.ModelSerializer):
-    categoria_nome = serializers.CharField(
-        source='categoriaalimento.nome',
+class AvaliacaofisicaSerializer(serializers.ModelSerializer):
+    aluno_nome = serializers.CharField(
+        source='aluno.nome',
         read_only=True
     )
 
     class Meta:
-        model = Alimento
+        model = Avaliacaofisica
         fields = '__all__'

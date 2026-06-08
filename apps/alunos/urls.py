@@ -2,29 +2,21 @@ from django.urls import path, include
 from rest_framework import routers
 from . import views
 
-app_name = 'avaliacoesfisicas'
+app_name = 'alunos'
 
 router = routers.SimpleRouter()
 router.register(
     '',
-    views.AvaliacaofisicaViewSet,
-    basename='avaliacoesfisicas'
+    views.AlunoViewSet,
+    basename='alunos'
 )
 
 urlpatterns = [
-    path('listar/', views.listar_avaliacoesfisicas,
-         name='listar_avaliacoesfisicas'),
-
-    path('adicionar/', views.adicionar_avaliacaofisica,
-         name='adicionar_avaliacaofisica'),
-
-    path('editar/<int:id_avaliacaofisica>/',
-         views.editar_avaliacaofisica,
-         name='editar_avaliacaofisica'),
-
-    path('excluir/<int:id_avaliacaofisica>/',
-         views.deletar_avaliacaofisica,
-         name='deletar_avaliacaofisica'),
+    path('listar/', views.listar_alunos, name='listar_alunos'),
+    path('adicionar/', views.adicionar_aluno, name='adicionar_aluno'),
+    path('editar/<int:id_aluno>/', views.editar_aluno, name='editar_aluno'),
+    path('excluir/<int:id_aluno>/', views.deletar_aluno, name='deletar_aluno'),
+    path('buscar/', views.pesquisar_alunos, name='pesquisar_alunos'),
 
     path('api/', include(router.urls)),
 ]
