@@ -72,7 +72,9 @@ const searchQuery = ref('');
   border-radius: 8px;
   padding: 30px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  margin-bottom: 30px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 50px auto; 
 }
 
 .data-table-header {
