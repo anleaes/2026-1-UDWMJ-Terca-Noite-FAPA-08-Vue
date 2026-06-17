@@ -4,7 +4,7 @@
           <div class="data-table-header">
             <h2 class="table-title">🍽️ Lista de Alimentos Disponíveis</h2>
             <div class="table-actions">
-              <router-link to="/nutricao/montar/carrinho" class="btn-action btn-primary">🛒 Ver Carrinho da Dieta ({{ carrinhoCount }})</router-link>
+              <router-link to="/nutricao/montar/carrinho" class="btn-action btn-primary">🛒 Ver Dieta ({{ carrinhoCount }})</router-link>
             </div>
           </div>
 

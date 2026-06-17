@@ -231,3 +231,52 @@ header nav .button.btn-logout:hover {
         align-items: flex-start;
     }
 }
+
+.training-preview {
+  background: #000000;
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+.training-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.training-header h3 {
+  margin: 10px 0;
+  font-size: 24px;
+}
+
+.training-header p {
+  color: #f0ec05;
+  margin: 0;
+}
+
+.training-tag {
+  display: inline-block;
+  background: #0de21f;
+  color: #2e7d32;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.start-btn {
+  background: #e9c602;
+  color: rgb(5, 0, 0);
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.start-btn:hover {
+  transform: translateY(-2px);
+}

@@ -114,14 +114,38 @@ const toggleMode = () => {
 }
 
 const handleLogin = async () => {
-  loading.value = true;
-  
-  // Simulando login: removido a requisição para o backend
-  setTimeout(() => {
-    localStorage.setItem('access_token', 'dev-bypass-token');
-    router.push('/dashboard');
-    loading.value = false;
-  }, 500);
+  try {
+    loading.value = true
+    errorMessage.value = ''
+
+    const response = await api.post('/api/token/', {
+      username: loginForm.value.usuario,
+      password: loginForm.value.senha
+    })
+
+    localStorage.setItem(
+      'access_token',
+      response.data.access
+    )
+
+    localStorage.setItem(
+      'refresh_token',
+      response.data.refresh
+    )
+
+    localStorage.setItem(
+      'username',
+      loginForm.value.usuario
+    )
+
+    router.push('/dashboard')
+
+  } catch (error) {
+    errorMessage.value = 'Usuário ou senha inválidos'
+    console.error(error)
+  } finally {
+    loading.value = false
+  }
 }
 
 const handleRegister = async () => {

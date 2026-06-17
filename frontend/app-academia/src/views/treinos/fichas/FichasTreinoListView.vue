@@ -45,7 +45,10 @@ const fetchFichas = async () => {
     const response = await api.get('/fichas-treinos/');
     const mapped = response.data.map((ficha: any) => ({
       ...ficha,
-      esta_ativo: ficha.esta_ativo ? 'Sim' : 'Não'
+      esta_ativo: ficha.esta_ativo ? 'Sim' : 'Não',
+      // Mapeia o nome do aluno e treinador caso venham como objetos aninhados da API
+      aluno_nome: ficha.aluno_nome || (ficha.aluno?.nome ? `${ficha.aluno.nome} ${ficha.aluno.sobrenome || ''}`.trim() : 'N/A'),
+      treinador_nome: ficha.treinador_nome || ficha.treinador?.nome || 'N/A'
     }));
     fichas.value = mapped;
     allFichas.value = mapped;
@@ -65,7 +68,9 @@ const handleSearch = (query: string) => {
   const q = query.toLowerCase();
   fichas.value = allFichas.value.filter(ficha => 
     (ficha.nome && ficha.nome.toLowerCase().includes(q)) ||
-    (ficha.descricao && ficha.descricao.toLowerCase().includes(q))
+    (ficha.descricao && ficha.descricao.toLowerCase().includes(q)) ||
+    (ficha.aluno_nome && ficha.aluno_nome.toLowerCase().includes(q)) ||
+    (ficha.treinador_nome && ficha.treinador_nome.toLowerCase().includes(q))
   );
 };
 

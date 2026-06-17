@@ -14,6 +14,7 @@
           </template>
 
           <template #actions>
+            <router-link to="/dashboard" class="btn-menu-internal">MENU</router-link>
             <router-link to="/treinos/exercicios/novo" class="btn-action btn-primary">+ Novo Exercício</router-link>
           </template>
 

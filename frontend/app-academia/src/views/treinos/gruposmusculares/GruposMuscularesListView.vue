@@ -9,6 +9,7 @@
           @search="handleSearch"
         >
           <template #actions>
+            <router-link to="/dashboard" class="btn-menu-internal">MENU</router-link>
             <router-link to="/treinos/grupos-musculares/novo" class="btn-action btn-primary">+ Novo Grupo</router-link>
           </template>
 

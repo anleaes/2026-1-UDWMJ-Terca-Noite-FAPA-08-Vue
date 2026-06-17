@@ -6,10 +6,27 @@
       <div class="container dashboard-container">
         <aside class="user-sidebar">
           <div class="user-profile-mini">
-            <div class="avatar">WL</div>
-            <h3>Willian Lopes</h3>
+            <div class="avatar">{{ avatar }}</div>
+
+            <h3>{{ username }}</h3>
+
             <p>Aluno Black Pass</p>
+
+            <button
+              @click="logout"
+              style="
+                margin-top: 10px;
+                width: 100%;
+                padding: 8px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+              "
+            >
+              Sair
+            </button>
           </div>
+
           <nav class="user-menu">
             <ul>
               <li><router-link to="/dashboard" exact-active-class="active">Meu Painel</router-link></li>
@@ -33,36 +50,42 @@
         </aside>
 
         <section class="dashboard-content">
-          <h2>Bem-vindo de volta, Willian! 🏋️‍♂️</h2>
-          <p class="subtitle">Aqui está o resumo do seu desempenho nesta semana.</p>
+          <h2>
+            Bem-vindo de volta, {{ username }}! 🏋️‍♂️
+          </h2>
 
-          <div class="info-cards">
-            <div class="card">
-                <h3>Plano Atual</h3>
-                <p class="highlight">Black Pass</p>
-            </div>
-             <div class="card">
-                <h3>Frequência Mensal</h3>
-                <p>12 Treinos</p>
-            </div>
-            <div class="card">
-                <h3>Próximo Vencimento</h3>
-                <p>15/07/2026</p>
+          <div class="dashboard-summary">
+            <h3>Seus Treinos</h3>
+            <p>
+              Confira abaixo todas as suas fichas de treino registradas.
+            </p>
+          </div>
+
+          <div class="training-preview" v-for="treino in treinos" :key="treino.id">
+            <div class="training-header">
+              <div>
+                <span class="training-tag">
+                  FICHA DE TREINO
+                </span>
+
+                <h3>{{ treino.nome }}</h3>
+
+                <p v-if="treino.descricao">
+                  {{ treino.descricao }}
+                </p>
+              </div>
+
+              <router-link
+                to="/treinos/fichas"
+                class="start-btn"
+              >
+                Visualizar Treino
+              </router-link>
             </div>
           </div>
 
-          <div class="training-preview">
-            <div class="training-header">
-              <h3>Treino do Dia: Peito e Tríceps</h3>
-              <a href="#" class="start-btn">Iniciar Treino</a>
-            </div>
-            <ul class="exercise-list">
-              <li><span>Supino Reto com Barra</span> <span>4x 10-12</span></li>
-              <li><span>Supino Inclinado com Halteres</span> <span>3x 12</span></li>
-              <li><span>Crucifixo no Crossover</span> <span>4x 15</span></li>
-              <li><span>Tríceps Testa</span> <span>3x 12</span></li>
-              <li><span>Tríceps na Polia (Corda)</span> <span>4x 15</span></li>
-            </ul>
+          <div v-if="treinos.length === 0" style="text-align: center; padding: 30px; color: #888;">
+            <p>Nenhum treino registrado até o momento.</p>
           </div>
         </section>
       </div>
@@ -73,8 +96,48 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import api from '@/services/api'
+
 import AppHeader from '@/components/AppHeader.vue'
 import AppFooter from '@/components/AppFooter.vue'
+
+const router = useRouter()
+
+const username = localStorage.getItem('username') || 'Usuário'
+
+const avatar = computed(() => {
+  return username.charAt(0).toUpperCase()
+})
+
+const treinos = ref<any[]>([])
+
+const carregarTreinos = async () => {
+  try {
+    // Usando o serviço 'api' centralizado que já deve lidar com a BaseURL e Token
+    const response = await api.get('/fichas-treinos/')
+
+    const dados = Array.isArray(response.data)
+      ? response.data
+      : response.data.results || []
+
+    treinos.value = dados
+
+  } catch (error) {
+    console.error('Erro ao carregar treinos:', error)
+  }
+}
+
+onMounted(() => {
+  carregarTreinos()
+})
+
+const logout = () => {
+  localStorage.removeItem('access_token')
+  localStorage.removeItem('username')
+  router.push('/login')
+}
 </script>
 
 <style scoped>
