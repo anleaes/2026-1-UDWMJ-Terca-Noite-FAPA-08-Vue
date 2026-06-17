@@ -4,7 +4,8 @@
           <div class="data-table-header">
             <h2 class="table-title">Lista de Exercícios</h2>
             <div class="table-actions">
-              <router-link to="/treinos/montar/carrinho" class="btn-action btn-primary">🛒 Ver Carrinho ({{ carrinhoCount }})</router-link>
+              <router-link to="/dashboard" class="btn-menu-internal">MENU</router-link>
+              <router-link to="/treinos/montar/carrinho" class="btn-action btn-primary">🛒 Ver Treino </router-link>
             </div>
           </div>
 
@@ -104,6 +105,18 @@ onMounted(async () => {
 .data-table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 15px; }
 .table-title { font-family: 'Calistoga', serif; font-size: 28px; color: #FFF; }
 .table-actions { display: flex; gap: 15px; align-items: center; }
+
+.btn-menu-internal {
+  background-color: #FFB800;
+  color: #141414;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+.btn-menu-internal:hover { opacity: 0.8; }
 .table-responsive { overflow-x: auto; }
 .data-table { width: 100%; border-collapse: collapse; }
 .data-table th, .data-table td { padding: 15px 20px; text-align: left; border-bottom: 1px solid #333; }

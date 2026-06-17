@@ -9,6 +9,7 @@
           @search="handleSearch"
         >
           <template #actions>
+            <router-link to="/dashboard" class="btn-menu-internal">MENU</router-link>
             <router-link to="/fichas-medicas/novo" class="btn-action btn-primary">+ Nova Ficha</router-link>
           </template>
 

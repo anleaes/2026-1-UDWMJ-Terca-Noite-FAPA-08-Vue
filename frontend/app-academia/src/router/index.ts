@@ -149,22 +149,34 @@ const router = createRouter({
   ]
 })
 
-// Guarda global de rotas (desativada temporariamente)
-/*
+// Guarda global de rotas
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('access_token');
-  const publicRoutes = ['/', '/login', '/login-alunos', '/registro'];
-  
-  if ((to.path === '/login' || to.path === '/login-alunos' || to.path === '/' || to.path === '/registro') && token) {
-    return next('/dashboard');
+  const token = localStorage.getItem('access_token')
+
+  const publicRoutes = [
+    '/',
+    '/login',
+    '/login-alunos',
+    '/registro'
+  ]
+
+  if (
+    (
+      to.path === '/' ||
+      to.path === '/login' ||
+      to.path === '/login-alunos' ||
+      to.path === '/registro'
+    ) &&
+    token
+  ) {
+    return next('/dashboard')
   }
-  
+
   if (!publicRoutes.includes(to.path) && !token) {
-    return next('/login');
+    return next('/login')
   }
-  
-  next();
-});
-*/
+
+  next()
+})
 
 export default router

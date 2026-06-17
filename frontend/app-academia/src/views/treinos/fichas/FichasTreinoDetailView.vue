@@ -23,19 +23,11 @@
               </span>
             </div>
 
-            <h3 class="section-subtitle">Itens da Ficha de Treino</h3>
 
             <div class="table-responsive">
               <table class="data-table">
                 <thead>
-                  <tr>
-                    <th>Exercício</th>
-                    <th>Séries</th>
-                    <th>Repetições</th>
-                    <th>Intervalo</th>
-                    <th>Dia Treino</th>
-                    <th>Observação</th>
-                  </tr>
+
                 </thead>
                 <tbody>
                   <tr v-for="item in items" :key="item.id">
@@ -47,7 +39,6 @@
                     <td>{{ item.observacao || '-' }}</td>
                   </tr>
                   <tr v-if="items.length === 0">
-                    <td colspan="6" class="text-center">Nenhum item encontrado.</td>
                   </tr>
                 </tbody>
               </table>
@@ -73,15 +64,18 @@ const loading = ref(true);
 
 onMounted(async () => {
   const id = route.params.id;
+
   try {
     const response = await api.get(`/fichas-treinos/${id}/`);
+
     ficha.value = response.data;
-    // Items may come nested in the ficha response or in a separate endpoint
-    if (response.data.items) {
-      items.value = response.data.items;
-    } else if (response.data.itens) {
-      items.value = response.data.itens;
-    }
+
+    // Exercícios da ficha
+    items.value = response.data.itens_treino || [];
+
+    console.log('Resposta da API:', response.data);
+    console.log('Items:', items.value);
+
   } catch (error) {
     console.error('Erro ao carregar ficha de treino:', error);
     alert('Não foi possível carregar os detalhes.');

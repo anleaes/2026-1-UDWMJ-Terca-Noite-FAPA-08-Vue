@@ -7,6 +7,10 @@
       <nav v-if="isDashboard" class="navbar">
         <ul class="leftside">
           <li><router-link to="/dashboard" exact-active-class="active">Meu Painel</router-link></li>
+          <!-- O botão MENU aparece apenas se não estivermos na rota /dashboard -->
+          <li v-if="route.path !== '/dashboard'">
+            <router-link to="/dashboard" class="btn-menu">MENU</router-link>
+          </li>
         </ul>
         
         <div class="rightside">
@@ -36,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 defineProps({
   isDashboard: {
@@ -46,6 +50,7 @@ defineProps({
 });
 
 const router = useRouter();
+const route = useRoute();
 
 const handleLogout = () => {
   if (confirm('Tem certeza que deseja sair?')) {
@@ -56,6 +61,18 @@ const handleLogout = () => {
 </script>
 
 <style scoped>
+.btn-menu {
+  background-color: #FFB800;
+  color: #141414;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+.btn-menu:hover { opacity: 0.8; }
+
 .btn-logout {
   background-color: transparent;
   color: #ff4d4d;
